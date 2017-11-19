@@ -12,7 +12,10 @@ COPY . /usr/src/app
 RUN npm install -g node-gyp
 RUN cd $(npm root -g)/npm && npm install fs-extra && sed -i -e s/graceful-fs/fs-extra/ -e s/fs.rename/fs.move/ ./lib/utils/rename.js
 RUN npm install --production
-RUN npm install redis@0.10.0 talib@1.0.2 pg mongojs
+RUN npm install redis@0.10.0 talib@1.0.2 pg@6.1.0 mongojs
+
+# Bundle app source
+COPY . /usr/src/app
 
 EXPOSE 3000
 RUN chmod +x /usr/src/app/docker-entrypoint.sh
